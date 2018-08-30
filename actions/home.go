@@ -3,6 +3,7 @@ package actions
 import (
 	"fmt"
 	"net"
+	"net/http"
 	"strings"
 
 	"github.com/gobuffalo/buffalo"
@@ -14,6 +15,7 @@ var UserAgents = [4]string{"WindowsPowerShell", "curl", "fetch", "Wget"}
 // a home page.
 func RootHandler(c buffalo.Context) error {
 
+	// Eventually use some sort of middlware to determine CLI or Browser
 	for _, v := range UserAgents {
 		if strings.Contains(c.Request().UserAgent(), v) {
 			ip, _, err := net.SplitHostPort(c.Request().RemoteAddr)
@@ -23,22 +25,20 @@ func RootHandler(c buffalo.Context) error {
 			return c.Render(200, r.String(ip))
 		}
 	}
-	return c.Render(200, r.JSON(map[string]string{"message": fmt.Sprintf("Welcome to Buffalo! %s", c.Request().UserAgent())}))
+	c.Set("title", TITLE)
+	c.Set("hostname", HOSTNAME)
+	c.Set("headers", GetAllHeaders(c.Request()))
+	return c.Render(200, r.HTML("index.html"))
 }
 
 func AllHeadersHandler(c buffalo.Context) error {
 	// Create return string
-	var request []string
-	// Add the host
-	request = append(request, fmt.Sprintf("Host: %v", c.Request().Host))
-	// Loop through headers
-	for name, headers := range c.Request().Header {
-		name = strings.ToLower(name)
-		for _, h := range headers {
-			request = append(request, fmt.Sprintf("%v: %v", name, h))
-		}
+	request := GetAllHeaders(c.Request())
+	var headerList []string
+	for name, header := range request {
+		headerList = append(headerList, fmt.Sprintf("%v: %v", name, header))
 	}
-	return c.Render(200, r.String(strings.Join(request, "\n")))
+	return c.Render(200, r.String(strings.Join(headerList, "\n")))
 }
 
 func HeaderHandler(c buffalo.Context) error {
@@ -56,4 +56,19 @@ func HeaderHandler(c buffalo.Context) error {
 		return c.Render(200, r.String(""))
 	}
 	return c.Render(200, r.String(request))
+}
+
+func GetAllHeaders(r *http.Request) map[string]string {
+	var request = make(map[string]string)
+	// Add the host
+	request["Host"] = r.Host
+	// Loop through headers
+	for name, headers := range r.Header {
+		fmt.Print(name)
+		name = strings.ToLower(name)
+		for _, h := range headers {
+			request[name] = h
+		}
+	}
+	return request
 }

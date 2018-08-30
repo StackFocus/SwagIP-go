@@ -15,6 +15,13 @@ import (
 // ENV is used to help switch settings based on where the
 // application is being run. Default is "development".
 var ENV = envy.Get("GO_ENV", "development")
+
+// TITLE is the title displayed on the header of the webpage
+var TITLE = envy.Get("SWAGIP_TITLE", "SwagIP")
+
+// HOST is used to display the instructions on the webpage
+var HOSTNAME = envy.Get("SWAGIP_HOSTNAME", "swagip.com")
+
 var app *buffalo.App
 
 // App is where all routes and middleware for buffalo
@@ -44,7 +51,7 @@ func App() *buffalo.App {
 		app.GET("/all", AllHeadersHandler)
 		app.GET("/{header}", HeaderHandler)
 
-		app.ServeFiles("/assets", packr.NewBox("../public/assets"))
+		app.ServeFiles("/assets", packr.NewBox("../assets"))
 
 	}
 

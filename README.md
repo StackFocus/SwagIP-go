@@ -1,21 +1,55 @@
-# Welcome to Buffalo!
+## SwagIP (GO Edition)
 
-Thank you for choosing Buffalo for your web development needs.
+A simple way to get your public IP address and other connection related information.
 
-## Starting the Application
+ This project was forked from our other project [https://github.com/StackFocus/SwagIP](https://github.com/StackFocus/SwagIP) to help us learn go.
 
-Buffalo ships with a command that will watch your application and automatically rebuild the Go binary and any assets for you. To do that run the "buffalo dev" command:
 
-	$ buffalo dev
+#### Examples of retrieving your public IP address from Linux/Unix CLI:
+```
+wget -qO - ip.swagger.pro
+curl ip.swagger.pro
+fetch -qo - ip.swagger.pro
+```
 
-If you point your browser to [http://127.0.0.1:3000](http://127.0.0.1:3000) you should see a "Welcome to Buffalo!" page.
+#### Example of retrieving your public IP address from PowerShell 3+:
+```
+Invoke-RestMethod http://ip.swagger.pro
+```
 
-**Congratulations!** You now have your Buffalo application up and running.
+### Authors
+- [Kevin Law](https://github.com/thatarchguy)
 
-## What Next?
+### Installation
+- Install the binary from the Releases or compile yourself:
+```
+$ go build .
+$ ./swagip
+```
+### Testing
+```
+$ go test
+```
 
-We recommend you heading over to [http://gobuffalo.io](http://gobuffalo.io) and reviewing all of the great documentation there.
+### Docker
+Docker is used to scale the application
+```
+$ docker build -t swagip .
+$ docker run -p 0.0.0.0:80:8080 swagip
+```
 
-Good luck!
+### Screenshots
+#### Browser Information:
+![Browser Information](screenshots/browser.png?raw=true)
 
-[Powered by Buffalo](http://gobuffalo.io)
+#### Wget Commands:
+![Wget Commands](screenshots/wget.png?raw=true)
+
+#### Curl Commands:
+![Curl Commands](screenshots/curl.png?raw=true)
+
+#### Fetch Commands:
+![Fetch Commands](screenshots/fetch.png?raw=true)
+
+#### PowerShell Commands:
+![PowerShell Commands](screenshots/powershell.png?raw=true)

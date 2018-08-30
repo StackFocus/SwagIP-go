@@ -1,0 +1,39 @@
+
+        <div class="row">
+            <h2 class="text-center" style="margin-top:1em">SwagIP</h2>
+        </div>
+        <div class="row">
+            <h3 class="text-center" style="margin-bottom:1.75em">Your Public IP is <%= headers["Host"] %></h3>
+        </div>
+
+        <div class="row">
+                <ul id="headerTableNav" class="nav nav-tabs nav-justified">
+                    <li id="browser" role="presentation" class="active"><a href="#">Browser</a></li>
+                    <li id="wget" role="presentation"><a href="#">Wget</a></li>
+                    <li id="curl" role="presentation"><a href="#">Curl</a></li>
+                    <li id="fetch" role="presentation"><a href="#">Fetch</a></li>
+                    <li id="powershell" role="presentation"><a href="#">PowerShell 3+</a></li>
+                </ul>
+                <div class="table-responsive">
+                    <table id="headerTable" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th class="key">Item:</th>
+                                <th>Result:</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%= for (key, value) in headers { %>
+                            <tr>
+                                <td class="key"><%= key %></td>
+                                <td><%= value %></td>
+                            </tr>
+                            <% } %>
+                            <tr>
+                                <td class="key">JSON</td>
+                                <td id="jsonTd" style="width:200px;"><%= json(headers) %></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
