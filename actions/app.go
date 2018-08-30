@@ -5,6 +5,7 @@ import (
 	"github.com/gobuffalo/buffalo/middleware"
 	"github.com/gobuffalo/buffalo/middleware/ssl"
 	"github.com/gobuffalo/envy"
+	"github.com/gobuffalo/packr"
 	"github.com/unrolled/secure"
 
 	"github.com/gobuffalo/x/sessions"
@@ -39,7 +40,11 @@ func App() *buffalo.App {
 			app.Use(middleware.ParameterLogger)
 		}
 
-		app.GET("/", HomeHandler)
+		app.GET("/", RootHandler)
+		app.GET("/all", AllHeadersHandler)
+		app.GET("/{header}", HeaderHandler)
+
+		app.ServeFiles("/assets", packr.NewBox("../public/assets"))
 
 	}
 
