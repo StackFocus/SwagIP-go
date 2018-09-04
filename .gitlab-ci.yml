@@ -1,6 +1,6 @@
 before_script:
-  - ln -s /builds /go/src/$(echo "github.com/StackFocus/swagip" | cut -d "/" -f1)
-  - cd /go/src/github.com/StackFocus/swagip
+  - ln -s /builds /go/src/$(echo "github.com/StackFocus/SwagIP-go" | cut -d "/" -f1)
+  - cd /go/src/github.com/StackFocus/SwagIP-go
   - mkdir -p public/assets
   - go get -u github.com/gobuffalo/buffalo/buffalo
   - go get -t -v ./...

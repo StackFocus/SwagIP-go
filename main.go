@@ -3,7 +3,7 @@ package main
 import (
 	"log"
 
-	"github.com/StackFocus/swagip/actions"
+	"github.com/StackFocus/SwagIP-go/actions"
 )
 
 func main() {

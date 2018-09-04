@@ -2,8 +2,8 @@
 # https://docs.docker.com/engine/userguide/eng-image/multistage-build/
 FROM gobuffalo/buffalo:v0.12.4 as builder
 
-RUN mkdir -p $GOPATH/src/github.com/StackFocus/swagip
-WORKDIR $GOPATH/src/github.com/StackFocus/swagip
+RUN mkdir -p $GOPATH/src/github.com/StackFocus/SwagIP-go
+WORKDIR $GOPATH/src/github.com/StackFocus/SwagIP-go
 
 ADD . .
 RUN go get $(go list ./... | grep -v /vendor/)

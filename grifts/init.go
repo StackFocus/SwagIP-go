@@ -1,7 +1,7 @@
 package grifts
 
 import (
-	"github.com/StackFocus/swagip/actions"
+	"github.com/StackFocus/SwagIP-go/actions"
 	"github.com/gobuffalo/buffalo"
 )
 
