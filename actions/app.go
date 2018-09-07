@@ -19,7 +19,7 @@ var ENV = envy.Get("GO_ENV", "development")
 // TITLE is the title displayed on the header of the webpage
 var TITLE = envy.Get("SWAGIP_TITLE", "SwagIP")
 
-// HOST is used to display the instructions on the webpage
+// HOSTNAME is used to display the instructions on the webpage
 var HOSTNAME = envy.Get("SWAGIP_HOSTNAME", "swagip.com")
 
 var app *buffalo.App
