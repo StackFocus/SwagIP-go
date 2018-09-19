@@ -1,11 +1,11 @@
 language: go
 
 go:
-  - "1.10"
   - master
 
 env:
   - GO_ENV=test
+  - GO111MODULE=on
 
 before_script:
   - mkdir -p $TRAVIS_BUILD_DIR/public/assets
