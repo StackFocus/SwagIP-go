@@ -23,19 +23,20 @@ Invoke-RestMethod http://ip.swagger.pro
 ### Installation
 - Install the binary from the Releases or compile yourself:
 ```
-$ go build .
-$ ./swagip
+$ make build
+$ GO_ENV=production ADDR=0.0.0.0 PORT=8080 ./SwagIP-go
 ```
+
 ### Testing
 ```
-$ go test
+$ make test
 ```
 
 ### Docker
 Docker is used to scale the application
 ```
 $ docker build -t swagip .
-$ docker run -p 0.0.0.0:80:8080 swagip
+$ docker run -p 0.0.0.0:80:3000 swagip
 ```
 
 ### Screenshots
