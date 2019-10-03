@@ -9,14 +9,14 @@ import (
 	"github.com/gobuffalo/buffalo"
 )
 
-var UserAgents = [4]string{"WindowsPowerShell", "curl", "fetch", "Wget"}
+var userAgents = [4]string{"WindowsPowerShell", "curl", "fetch", "Wget"}
 
 // RootHandler is a default handler to serve up
 // a home page.
 func RootHandler(c buffalo.Context) error {
 
 	// Eventually use some sort of middlware to determine CLI or Browser
-	for _, v := range UserAgents {
+	for _, v := range userAgents {
 		if strings.Contains(c.Request().UserAgent(), v) {
 			ip, _, err := net.SplitHostPort(c.Request().RemoteAddr)
 			if err != nil {
@@ -28,9 +28,10 @@ func RootHandler(c buffalo.Context) error {
 	c.Set("title", TITLE)
 	c.Set("hostname", HOSTNAME)
 	c.Set("headers", GetAllHeaders(c.Request()))
-	return c.Render(200, r.HTML("index.html"))
+	return c.Render(200, r.HTML("index.plush.html"))
 }
 
+// AllHeadersHandler will return all the headers to the client
 func AllHeadersHandler(c buffalo.Context) error {
 	// Create return string
 	request := GetAllHeaders(c.Request())
@@ -41,6 +42,7 @@ func AllHeadersHandler(c buffalo.Context) error {
 	return c.Render(200, r.String(strings.Join(headerList, "\n")))
 }
 
+// HeaderHandler returns requested header
 func HeaderHandler(c buffalo.Context) error {
 	var request string
 	for name, headers := range c.Request().Header {
@@ -58,6 +60,7 @@ func HeaderHandler(c buffalo.Context) error {
 	return c.Render(200, r.String(request))
 }
 
+// GetAllHeaders gathers all the headers
 func GetAllHeaders(r *http.Request) map[string]string {
 	var request = make(map[string]string)
 	// Add the host

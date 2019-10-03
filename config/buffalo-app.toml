@@ -1,0 +1,13 @@
+name = "SwagIP-go"
+bin = "bin/SwagIP-go"
+vcs = "git"
+with_pop = false
+with_sqlite = false
+with_dep = false
+with_webpack = false
+with_nodejs = false
+with_yarn = false
+with_docker = true
+with_grifts = false
+as_web = true
+as_api = false

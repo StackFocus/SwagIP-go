@@ -24,7 +24,7 @@ Invoke-RestMethod http://ip.swagger.pro
 - Install the binary from the Releases or compile yourself:
 ```
 $ make build
-$ GO_ENV=production ADDR=0.0.0.0 PORT=8080 ./SwagIP-go
+$ GO_ENV=production ADDR=0.0.0.0 PORT=8080 ./SwagIP
 ```
 
 ### Testing

@@ -1,19 +1,19 @@
 # Go parameters
-BINARY_NAME=SwagIP-go
+BINARY_NAME=SwagIP
 
 all: test build
 build:
 	packr
-	go build -o $(BINARY_NAME)_ -v
+	go build -o $(BINARY_NAME) -v
 test:
 	go test -v ./...
 clean:
 	go clean
 	packr clean
-	rm -f $(BINARY_NAME)_*
+	rm -f $(BINARY_NAME)*
 run:
-	go build -o $(BINARY_NAME)_ -v ./...
-	./$(BINARY_NAME)_
+	go build -o $(BINARY_NAME) -v ./...
+	./$(BINARY_NAME)
 deps:
 	go mod download
 

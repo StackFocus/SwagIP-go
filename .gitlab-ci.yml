@@ -22,7 +22,7 @@ stages:
 
 test:
   # Change to "<<: *use-golang-latest" to use the latest Go version
-  <<: *use-golang-1-8
+  <<: *use-golang-latest
   <<: *test-vars
   stage: test
   script:
