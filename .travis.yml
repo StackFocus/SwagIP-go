@@ -17,3 +17,29 @@ install:
   - go get $(go list ./... | grep -v /vendor/)
 
 script: buffalo test
+
+
+
+language: go
+
+go:
+  - "1.11.x"
+
+env:
+  - GO_ENV=test
+
+before_script:
+  - mkdir -p $TRAVIS_BUILD_DIR/public/assets
+
+go_import_path: github.com/StackFocus/SwagIP-go
+
+install:
+  - go get github.com/gobuffalo/buffalo/buffalo
+{{- if .opts.App.WithDep }}
+  - go get github.com/golang/dep/cmd/dep
+  - dep ensure
+{{- else }}
+  - go get $(go list ./... | grep -v /vendor/)
+{{- end }}
+
+script: buffalo test
