@@ -2,10 +2,11 @@ package actions
 
 import (
 	"github.com/gobuffalo/buffalo"
-	"github.com/gobuffalo/buffalo/middleware"
-	"github.com/gobuffalo/buffalo/middleware/ssl"
 	"github.com/gobuffalo/envy"
-	"github.com/gobuffalo/packr"
+	contenttype "github.com/gobuffalo/mw-contenttype"
+	forcessl "github.com/gobuffalo/mw-forcessl"
+	paramlogger "github.com/gobuffalo/mw-paramlogger"
+	"github.com/gobuffalo/packr/v2"
 	"github.com/unrolled/secure"
 
 	"github.com/gobuffalo/x/sessions"
@@ -38,20 +39,20 @@ func App() *buffalo.App {
 			SessionName: "_swagip_session",
 		})
 		// Automatically redirect to SSL
-		app.Use(forceSSL())
+		//app.Use(forceSSL())
 
 		// Set the request content type to JSON
-		app.Use(middleware.SetContentType("application/json"))
+		app.Use(contenttype.Set("application/json"))
 
 		if ENV == "development" {
-			app.Use(middleware.ParameterLogger)
+			app.Use(paramlogger.ParameterLogger)
 		}
 
 		app.GET("/", RootHandler)
 		app.GET("/all", AllHeadersHandler)
 		app.GET("/{header}", HeaderHandler)
 
-		app.ServeFiles("/assets", packr.NewBox("../assets"))
+		app.ServeFiles("/assets", packr.New("../assets", "../assets"))
 
 	}
 
@@ -64,7 +65,7 @@ func App() *buffalo.App {
 // we recommend using a proxy: https://gobuffalo.io/en/docs/proxy
 // for more information: https://github.com/unrolled/secure/
 func forceSSL() buffalo.MiddlewareFunc {
-	return ssl.ForceSSL(secure.Options{
+	return forcessl.Middleware(secure.Options{
 		SSLRedirect:     ENV == "production",
 		SSLProxyHeaders: map[string]string{"X-Forwarded-Proto": "https"},
 	})
